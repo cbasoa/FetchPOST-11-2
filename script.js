@@ -4,11 +4,24 @@ let form = document.getElementById("formulario");
 
 form.addEventListener("submit", (e) => {
     e.preventDefault(); //Evita que se envien datos por defecto al servidor
+    let nombre = document.getElementById("name").value;
+    let apellido = document.getElementById("lastname").value;
+    let date = document.getElementById("date").value;
+    
+    const datosFormulario = { //Objeto que sera pasado al body para que lo convierta en JSON
+      name: nombre,
+      lastename: apellido,
+      date: date
 
-    const datosFormulario = new FormData(formulario); // Objeto FormData para permitirnos obtener los datos del formulario
+    }
     const options = {
     method: "POST",
-    body: datosFormulario
+    body: JSON.stringify(datosFormulario),
+    headers: {
+
+      'Content-Type': 'application/json'
+      
+      }
   };
   
     fetch("https://jsonplaceholder.typicode.com/users", options) //Se envian los datos 
